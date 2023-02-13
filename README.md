@@ -15,5 +15,5 @@
 
 ## Examples
 
-![d](https://github.com/SsDp812/AirportParser/example1.png)
-![d](https://github.com/SsDp812/AirportParser/example2.png)
+![](https://github.com/SsDp812/AirportParser/blob/main/example1.png)
+![](https://github.com/SsDp812/AirportParser/blob/main/example2.png)
