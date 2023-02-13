@@ -10,7 +10,7 @@
 ## Searching
 >> Difficult of searching is < O(n) where
 >> in is count of rows in file.
->> All column and saved in map with row's indexes.
+>> All column is saved in map with row's indexes.
 >> So searching method search for the right row.
 
 ## Examples
