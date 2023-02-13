@@ -15,4 +15,5 @@
 
 ## Examples
 
-![Image alt](https://github.com/{username}/{repository}/raw/{branch}/{path}/image.png
+![](https://github.com/SsDp812/AirportParser/example1.png
+![](https://github.com/SsDp812/AirportParser/example2.png
