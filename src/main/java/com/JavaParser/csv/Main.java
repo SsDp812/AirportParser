@@ -11,7 +11,7 @@ public class Main {
             try{
                 int indexColumn = Integer.parseInt(args[0]);
                 if(indexColumn >= 1 && indexColumn <= 14){
-                    CsvParser parser = new CsvParser("airports.csv",2);
+                    CsvParser parser = new CsvParser("airports.csv",indexColumn);
                     String req = "";
                     Scanner scanner = new Scanner(System.in);
                     Boolean condExit = false;
