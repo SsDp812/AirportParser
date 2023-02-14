@@ -1,3 +1,3 @@
-JavaParser/IParser.class
-JavaParser/CsvParser.class
-JavaParser/Main.class
+com/JavaParser/csv/IParser.class
+com/JavaParser/csv/CsvParser.class
+com/JavaParser/csv/Main.class

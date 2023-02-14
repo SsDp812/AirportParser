@@ -1,4 +1,4 @@
-package JavaParser;
+package com.JavaParser.csv;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,9 +18,7 @@ public class CsvParser implements IParser{
         initMap();
     }
 
-    @Override
-    public TreeMap<String,String> search(String req) {
-
+    public TreeSet<Integer> getIndexesForSearchInMap(String req){
         TreeSet<Integer> indexes = new TreeSet<>();
         for(Map.Entry<String, Integer> el : map.entrySet()){
             if((el.getKey().toLowerCase().substring(1).startsWith(req.toLowerCase())
@@ -29,15 +27,19 @@ public class CsvParser implements IParser{
                 indexes.add(el.getValue());
             }
         }
+        return indexes;
+    }
+
+    @Override
+    public String[] search(TreeSet<Integer> indexes) {
         int rowIndex = 0;
-        TreeMap<String,String> response = new TreeMap<>();
+        StringBuilder builder = new StringBuilder("");
         if(!indexes.isEmpty()){
             try(BufferedReader rd = new BufferedReader(new FileReader(fileName))){
                 String line = "";
                 while((line = rd.readLine()) != null && rowIndex <= indexes.last()){
                     if(indexes.contains(rowIndex)){
-                        String key = line.split(",")[columnIndex - 1];
-                        response.put(key,line);
+                        builder.append(line + "    ");
                     }
                     rowIndex++;
                 }
@@ -47,14 +49,22 @@ public class CsvParser implements IParser{
                 throw new RuntimeException(e);
             }
         }
+        String[] response = builder.toString().split("   ");
         return response;
     }
 
 
     @Override
-    public void searchAndPrint(String req){
-        long time = System.currentTimeMillis();
-        TreeMap<String,String> res = search(req);
+    public void convertToNormalViewAndPrint(String[] data){
+        TreeMap <String,String> res = new TreeMap<>();
+        if(data.length != 0){
+            for(int y = 0; y < data.length - 1;y++){
+                String mainParam = data[y].split(",")[columnIndex - 1];
+                res.put(mainParam,data[y]);
+            }
+        }else{
+            System.out.println("Поиск не дал результатов!");
+        }
         if(res.isEmpty()){
             System.out.println("Поиск не дал результатов!");
         }
@@ -69,7 +79,7 @@ public class CsvParser implements IParser{
             if(val != null){
                 resWithDoubleValues = new TreeMap<>();
                 for(Map.Entry<String, String> info : res.entrySet()){
-                resWithDoubleValues.put(Double.parseDouble(info.getKey()),info.getValue());
+                    resWithDoubleValues.put(Double.parseDouble(info.getKey()),info.getValue());
                 }
                 for(Map.Entry<Double, String> info : resWithDoubleValues.entrySet()){
                     System.out.println(info.getKey() + "[" + info.getValue() + "]");
@@ -80,9 +90,8 @@ public class CsvParser implements IParser{
                     System.out.println(info.getKey() + "[" + info.getValue() + "]");
                 }
             }
-            System.out.println("Количество найденных строк: " + res.size());
-            System.out.println("Время затраченное на поиск: " + (System.currentTimeMillis() - time) + "мс");
         }
+        System.out.println("Количество найденных строк: " + res.size());
     }
     @Override
     public void initMap() {
